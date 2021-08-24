@@ -70,6 +70,8 @@ client.connect();
 
 let numero = 1;
 
+var pixel = 0;
+
 client.on("message", (channel, tags, message, self) => {
   console.log(`${tags["display-name"]}: ${message}`);
   var string = message.toLowerCase();
@@ -89,6 +91,11 @@ client.on("message", (channel, tags, message, self) => {
   if (stringArray[0].match(/\d+/g) != null) {
     document.getElementById(cell).style.backgroundColor = color;
     document.getElementById(cell).style.borderColor = color;
+    pixel++;
+
+    if(pixel % 10 == 0){
+      save();
+    }
 
     if (color == "white") {
       document.getElementById(cell).style.borderColor = "lightgrey";
@@ -118,6 +125,8 @@ client.on("message", (channel, tags, message, self) => {
     }
   }
 });
+
+
 
 function save() {
   const d = new Date();
