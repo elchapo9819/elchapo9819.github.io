@@ -1,0 +1,113 @@
+#target div{
+  width: 15px;
+  height:15px;
+  border: solid 1px lightgrey;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+#header{
+display: flex;
+flex-direction: row;
+flex-wrap:wrap;
+width: 1910px;
+background-color: #3b3b3b;
+}
+
+
+#header div:nth-child(1){
+width: 40px;
+color: #3b3b3b;
+border: none;
+}
+
+#header div{
+text-align: center;
+font-size:14px;
+width: 15px;
+word-break:break-all; 
+display: flex;
+justify-content: center;
+
+  align-items: center;
+  height:53px;
+  border:1px solid grey;
+  background-color: #3b3b3b;
+  font-weight: bold;
+  color: white;
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0 auto;
+  margin-left:5px;
+  box-sizing: border-box;
+  overflow: hidden; 
+  background-color: #3b3b3b;
+}
+
+#test{
+display: flex;
+}
+
+#side div{
+width: 40px;
+  height:15px;
+  border:1px solid grey;
+  background-color: #3b3b3b;
+  color: white;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+  font-size:14px;
+  display: flex;
+  justify-content: center;
+
+    align-items: center;
+  
+}
+
+
+#side2 div{
+width: 40px;
+  height:15px;
+  border:1px solid grey;
+  background-color: #3b3b3b;
+  color: white;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+  font-size:14px;
+  display: flex;
+  justify-content: center;
+
+    align-items: center;
+  
+}
+
+#target{
+display: flex;
+flex-direction: row;
+flex-wrap:wrap;
+width: 1830px;
+}
+
+textarea{
+display:none;
+}
+
+#cpanel button{
+  border:none;
+  border-radius: 0;
+  background-color: black;
+  padding: 6px 6px 6px 6px;
+  font-weight: bold;
+  color: white;
+}
+
+#cpanel{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  height: 50px;
+}
