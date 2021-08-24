@@ -63,7 +63,7 @@ for (var i = 0; i < 7442; i++) {
 }
 
 const client = new tmi.Client({
-  channels: ["bonoboriven"],
+  channels: ["pixelstheory"],
 });
 
 client.connect();
