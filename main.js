@@ -93,7 +93,7 @@ client.on("message", (channel, tags, message, self) => {
     document.getElementById(cell).style.borderColor = color;
     pixel++;
 
-    if(pixel % 10 == 0){
+    if (pixel % 10 == 0) {
       save();
     }
 
@@ -125,6 +125,58 @@ client.on("message", (channel, tags, message, self) => {
     }
   }
 });
+
+
+
+
+function test() {
+
+  var url = 'http://127.0.0.1:5500/test.txt';
+  var storedText;
+
+  fetch(url)
+    .then(function (response) {
+      response.text().then(function (text) {
+        storedText = text;
+        done();
+      });
+    });
+
+  function done() {
+    console.log(storedText);
+    storedText = storedText.toString(); 
+    str = storedText.split(/(\s+)/);
+    console.log(str);
+  
+    for (i = 0, b = 0; b < 1; i = i + 4) {
+      if (
+        i < str.length &&
+        str[i] !== "undefined" &&
+        str[i] !== " " &&
+        str[i] !== "\n" &&
+        str[i] !== "s" &&
+        str[i] !== "Salvataggio"
+      ) {
+        console.log(i);
+        document.getElementById(str[i]).style.backgroundColor = str[i + 2];
+        document.getElementById(str[i]).style.borderColor = str[i + 2];
+  
+        if (str[i + 2] == "white") {
+          document.getElementById(str[i]).style.borderColor = "lightgrey";
+  
+  
+        }
+      }
+      else if (str[i] !== "Salvataggio") {
+        b = b + 1;
+      }
+    }
+  }
+
+}
+
+
+
 
 
 
@@ -165,6 +217,8 @@ function save() {
   c.href = window.URL.createObjectURL(t);
   c.click();
 }
+
+
 
 function carica() {
   var str = document.getElementById("txtarea");
