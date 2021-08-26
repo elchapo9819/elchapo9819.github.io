@@ -1,1 +1,2 @@
-VERSIONE 0.6
+VERSIONE 0.8
+Fix Hex

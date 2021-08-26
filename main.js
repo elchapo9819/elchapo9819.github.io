@@ -70,6 +70,8 @@ client.connect();
 
 let numero = 1;
 
+var pixel = 0;
+
 client.on("message", (channel, tags, message, self) => {
   console.log(`${tags["display-name"]}: ${message}`);
   var string = message.toLowerCase();
@@ -89,8 +91,13 @@ client.on("message", (channel, tags, message, self) => {
   if (stringArray[0].match(/\d+/g) != null) {
     document.getElementById(cell).style.backgroundColor = color;
     document.getElementById(cell).style.borderColor = color;
+    pixel++;
 
-    if (color == "white") {
+    if (pixel % 10 == 0) {
+      save();
+    }
+
+    if (color == "white" || color == "#ffffff" || color == "#fff" ) {
       document.getElementById(cell).style.borderColor = "lightgrey";
     }
   }
@@ -119,6 +126,63 @@ client.on("message", (channel, tags, message, self) => {
   }
 });
 
+
+
+var controllo = location.hash;
+console.log(controllo);
+
+if (controllo == "#carica") {
+  console.log("ha fatto");
+
+  var url = 'http://127.0.0.1:5500/salvataggio.txt';
+  var storedText;
+
+  fetch(url)
+    .then(function (response) {
+      response.text().then(function (text) {
+        storedText = text;
+        done();
+      });
+    });
+
+  function done() {
+    console.log(storedText);
+    storedText = storedText.toString(); 
+    str = storedText.split(/(\s+)/);
+    console.log(str);
+  
+    for (i = 0, b = 0; b < 1; i = i + 4) {
+      if (
+        i < str.length &&
+        str[i] !== "undefined" &&
+        str[i] !== " " &&
+        str[i] !== "\n" &&
+        str[i] !== "s" &&
+        str[i] !== "Salvataggio"
+      ) {
+        console.log(i);
+        document.getElementById(str[i]).style.backgroundColor = str[i + 2];
+        document.getElementById(str[i]).style.borderColor = str[i + 2];
+  
+        if (str[i + 2] == "white" ) {
+          document.getElementById(str[i]).style.borderColor = "lightgrey";
+  
+  
+        }
+      }
+      else if (str[i] !== "Salvataggio") {
+        b = b + 1;
+      }
+    }
+  }
+
+}
+
+
+
+
+
+
 function save() {
   const d = new Date();
   var data = "Salvataggio Wall";
@@ -139,7 +203,7 @@ function save() {
         .backgroundColor;
 
       if (coloresfondo !== "" && coloresfondo !== "white") {
-        var data = data + "\n" + idOf(cella) + f + " " + coloresfondo;
+        var data = data + "\n" + idOf(cella) + f + " " + coloresfondo.replace(/\s/g, "");
       }
 
       f = f + 1;
@@ -156,6 +220,8 @@ function save() {
   c.href = window.URL.createObjectURL(t);
   c.click();
 }
+
+
 
 function carica() {
   var str = document.getElementById("txtarea");
@@ -175,7 +241,7 @@ function carica() {
       document.getElementById(str[i]).style.backgroundColor = str[i + 2];
       document.getElementById(str[i]).style.borderColor = str[i + 2];
 
-      if (str[i + 2] == "white") {
+      if (str[i + 2] == "white" || str[i + 2] == "#fff"  || str[i + 2] == "#ffffff") {
         document.getElementById(str[i]).style.borderColor = "lightgrey";
 
 
