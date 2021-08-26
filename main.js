@@ -62,6 +62,10 @@ for (var i = 0; i < 7442; i++) {
   }
 }
 
+
+nuovocarica()
+
+
 const client = new tmi.Client({
   channels: ["pixelstheory"],
 });
@@ -184,14 +188,9 @@ if (controllo == "#carica") {
 
 
 function save() {
-  const d = new Date();
-  var data = "Salvataggio Wall";
-  var c = document.createElement("a");
-  c.download = "twitchwall " + d + ".txt";
-
   let cella = 0;
   let f = 1;
-
+  var data = "Salvataggio Wall"
   for (var i = 0; i < 7442; i++) {
     // We need something to add our new element too
     let target = document.querySelector("#target");
@@ -203,7 +202,7 @@ function save() {
         .backgroundColor;
 
       if (coloresfondo !== "" && coloresfondo !== "white") {
-        var data = data + "\n" + idOf(cella) + f + " " + coloresfondo.replace(/\s/g, "");
+          var data = data + "\n" + idOf(cella) + f + " " + coloresfondo.replace(/\s/g, "");
       }
 
       f = f + 1;
@@ -214,14 +213,61 @@ function save() {
     }
   }
 
-  var t = new Blob([data], {
-    type: "text/plain",
-  });
-  c.href = window.URL.createObjectURL(t);
-  c.click();
+  fetch('https://fiverrtest.netsons.org/api/collections/save/salvataggio?token=e79b01dcea616b5ded3b24600e5cfe', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        data: {  
+                 "_id": "61280cc6383862ec390000cf",
+                 "textarea": data
+                 }
+    })
+    })
+    .then(res=>res.json())
+    .then(entry => console.log(entry));
 }
 
 
+function nuovocarica() {
+
+  (async () => {
+    let url = 'https://fiverrtest.netsons.org/api/collections/get/salvataggio?token=e79b01dcea616b5ded3b24600e5cfe';
+    let response = await fetch(url);
+
+    let salvataggio = await response.json(); // legge il body della risposta e lo interpreta come JSON
+
+    console.log(salvataggio);
+
+    var str = salvataggio.entries[0].textarea;
+  str = str.split(/(\s+)/);
+  console.log(str);
+
+  for (i = 0, b = 0; b < 1; i = i + 4) {
+    if (
+      i < str.length &&
+      str[i] !== "undefined" &&
+      str[i] !== " " &&
+      str[i] !== "\n" &&
+      str[i] !== "s" &&
+      str[i] !== "Salvataggio"
+    ) {
+      console.log(i);
+      document.getElementById(str[i]).style.backgroundColor = str[i + 2];
+      document.getElementById(str[i]).style.borderColor = str[i + 2];
+
+      if (str[i + 2] == "white" || str[i + 2] == "#fff"  || str[i + 2] == "#ffffff") {
+        document.getElementById(str[i]).style.borderColor = "lightgrey";
+
+
+      }
+    }
+    else if (str[i] !== "Salvataggio") {
+      b = b + 1;
+    }
+  }
+})()
+
+}
 
 function carica() {
   var str = document.getElementById("txtarea");
