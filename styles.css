@@ -4,7 +4,17 @@
   border: solid 1px lightgrey;
   background-color: white;
   box-sizing: border-box;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color:white;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: Robot, sans-serif;
+  line-height: 1;
+
 }
+
 
 #header{
 display: flex;
